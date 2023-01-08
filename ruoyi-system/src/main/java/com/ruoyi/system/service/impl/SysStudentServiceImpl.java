@@ -1,6 +1,9 @@
 package com.ruoyi.system.service.impl;
 
 import java.util.List;
+
+import com.ruoyi.common.mybatis.FgocPage;
+import com.ruoyi.common.mybatis.PageParam;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -19,24 +22,8 @@ import com.ruoyi.system.service.ISysStudentService;
 public class SysStudentServiceImpl extends ServiceImpl<SysStudentMapper, SysStudent> implements ISysStudentService
 {
     @Override
-    public List<SysStudent> queryList(SysStudent sysStudent)
+    public FgocPage<SysStudent> queryList(PageParam pageParam, SysStudent sysStudent)
     {
-        // 注意：mybatis-plus lambda 模式不支持 eclipse 的编译器
-        // LambdaQueryWrapper<SysStudent> queryWrapper = Wrappers.lambdaQuery();
-        // queryWrapper.eq(SysStudent::getStudentName, sysStudent.getStudentName());
-        QueryWrapper<SysStudent> queryWrapper = Wrappers.query();
-        if (StringUtils.isNotEmpty(sysStudent.getStudentName()))
-        {
-            queryWrapper.eq("student_name", sysStudent.getStudentName());
-        }
-        if (StringUtils.isNotNull(sysStudent.getStudentAge()))
-        {
-            queryWrapper.eq("student_age", sysStudent.getStudentAge());
-        }
-        if (StringUtils.isNotEmpty(sysStudent.getStudentHobby()))
-        {
-            queryWrapper.eq("student_hobby", sysStudent.getStudentHobby());
-        }
-        return this.list(queryWrapper);
+        return baseMapper.queryList(FgocPage.getPage(pageParam), sysStudent);
     }
 }

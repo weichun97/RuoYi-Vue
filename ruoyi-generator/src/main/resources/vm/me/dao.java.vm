@@ -1,0 +1,25 @@
+package ${packageName}.${moduleName}.entity.dao;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.ruoyi.common.mybatis.FgocPage;
+import ${packageName}.${moduleName}.entity.param.${classname}.${ClassName}QueryParam;
+import ${packageName}.${moduleName}.entity.po.${ClassName}Entity;
+import ${packageName}.${moduleName}.entity.vo.${classname}.${ClassName}QueryVO;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+
+@Mapper
+public interface ${ClassName}Dao extends BaseMapper<${ClassName}Entity> {
+
+    /**
+     * 分页
+     */
+    FgocPage<${ClassName}QueryVO> query(FgocPage<${ClassName}QueryVO> fgocPage, @Param("queryParam") ${ClassName}QueryParam queryParam);
+
+    /**
+     * 导出查询
+     */
+    List<${ClassName}QueryVO> query(@Param("queryParam") ${ClassName}QueryParam queryParam);
+}

@@ -48,6 +48,8 @@ public class VelocityUtils
         velocityContext.put("functionName", StringUtils.isNotEmpty(functionName) ? functionName : "【请填写功能名称】");
         velocityContext.put("ClassName", genTable.getClassName());
         velocityContext.put("className", StringUtils.uncapitalize(genTable.getClassName()));
+        velocityContext.put("classname", genTable.getClassName().toLowerCase());
+        velocityContext.put("CLASSNAME", genTable.getClassName().toUpperCase());
         velocityContext.put("moduleName", genTable.getModuleName());
         velocityContext.put("BusinessName", StringUtils.capitalize(genTable.getBusinessName()));
         velocityContext.put("businessName", genTable.getBusinessName());
@@ -129,11 +131,15 @@ public class VelocityUtils
     public static List<String> getTemplateList(String tplCategory)
     {
         List<String> templates = new ArrayList<String>();
+        templates.add("vm/me/controller.java.vm");
+        templates.add("vm/me/dao.java.vm");
+        templates.add("vm/me/queryParam.java.vm");
+
         templates.add("vm/java/domain.java.vm");
-        templates.add("vm/java/mapper.java.vm");
+//        templates.add("vm/java/mapper.java.vm");
         templates.add("vm/java/service.java.vm");
         templates.add("vm/java/serviceImpl.java.vm");
-        templates.add("vm/java/controller.java.vm");
+//        templates.add("vm/java/controller.java.vm");
         templates.add("vm/xml/mapper.xml.vm");
         templates.add("vm/sql/sql.vm");
         templates.add("vm/js/api.js.vm");

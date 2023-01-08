@@ -2,6 +2,8 @@ package com.ruoyi.system.service;
 
 import java.util.List;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.ruoyi.common.mybatis.FgocPage;
+import com.ruoyi.common.mybatis.PageParam;
 import com.ruoyi.system.domain.SysStudent;
 
 /**
@@ -17,5 +19,5 @@ public interface ISysStudentService extends IService<SysStudent>
      * @param sysStudent 学生信息
      * @return 学生信息集合
      */
-    public List<SysStudent> queryList(SysStudent sysStudent);
+    FgocPage<SysStudent> queryList(PageParam pageParam, SysStudent sysStudent);
 }

@@ -3,6 +3,12 @@ package com.ruoyi.web.controller.test;
 import java.util.Arrays;
 import java.util.List;
 
+import com.ruoyi.common.api.Response;
+import com.ruoyi.common.api.ResultCode;
+import com.ruoyi.common.exception.ApiException;
+import com.ruoyi.common.exception.ServiceException;
+import com.ruoyi.common.mybatis.FgocPage;
+import com.ruoyi.common.mybatis.PageParam;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,11 +51,11 @@ public class SysStudentController extends BaseController
     @ApiOperation("获取列表")
     @PreAuthorize("@ss.hasPermi('system:student:list')")
     @GetMapping("/list")
-    public TableDataInfo list(SysStudent sysStudent)
+    public Response<FgocPage<SysStudent>> list(PageParam pageParam, SysStudent sysStudent)
     {
-        startPage();
-        List<SysStudent> list = sysStudentService.queryList(sysStudent);
-        return getDataTable(list);
+//        startPage();
+        FgocPage<SysStudent> list = sysStudentService.queryList(pageParam, sysStudent);
+        return Response.success(list);
     }
 
     /**
@@ -61,9 +67,9 @@ public class SysStudentController extends BaseController
     @PostMapping("/export")
     public void export(HttpServletResponse response, SysStudent sysStudent)
     {
-        List<SysStudent> list = sysStudentService.queryList(sysStudent);
-        ExcelUtil<SysStudent> util = new ExcelUtil<SysStudent>(SysStudent.class);
-        util.exportExcel(response, list, "用户数据");
+//        List<SysStudent> list = sysStudentService.queryList(sysStudent);
+//        ExcelUtil<SysStudent> util = new ExcelUtil<SysStudent>(SysStudent.class);
+//        util.exportExcel(response, list, "用户数据");
     }
 
     /**
