@@ -134,6 +134,7 @@ public class VelocityUtils
         templates.add("vm/me/controller.java.vm");
         templates.add("vm/me/dao.java.vm");
         templates.add("vm/me/queryParam.java.vm");
+        templates.add("vm/me/saveOrUpdateParam.java.vm");
 
         templates.add("vm/java/domain.java.vm");
 //        templates.add("vm/java/mapper.java.vm");

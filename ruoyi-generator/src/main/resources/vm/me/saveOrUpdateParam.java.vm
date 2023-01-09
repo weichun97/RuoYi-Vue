@@ -1,0 +1,31 @@
+package ${packageName}.${moduleName}.entity.param.${classname};
+
+import cn.hutool.core.date.DatePattern;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+import java.util.Date;
+
+@Data
+@ApiModel
+public class ${ClassName}SaveOrUpdateParam {
+
+#foreach ($column in $columns)
+    #if($column.edit)
+        #if(!$column.pk)
+            #if($column.required)
+            #end
+            #if($column.javaType == 'Date')
+    @JsonFormat(pattern = DatePattern.NORM_DATETIME_PATTERN)
+    @ApiModelProperty(value = "$column.columnComment", example = "2023-01-01 12:00:00")
+            #else
+    @ApiModelProperty(value = "$column.columnComment #if($column.dictType != "")字典:$column.dictType#end", example = "")
+            #end
+    private $column.javaType $column.javaField;
+
+        #end
+    #end
+#end
+}

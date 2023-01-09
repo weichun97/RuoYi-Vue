@@ -5,6 +5,7 @@ import com.ruoyi.common.api.Response;
 import com.ruoyi.common.api.ResultCode;
 import com.ruoyi.common.constant.HttpStatus;
 import com.ruoyi.common.core.domain.AjaxResult;
+import com.ruoyi.common.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -36,6 +37,17 @@ public class FgocGlobalExceptionHandler {
     public Response handleAccessDeniedException(AccessDeniedException e, HttpServletRequest request)
     {
         return Response.failed(ResultCode.FORBIDDEN);
+    }
+
+    /**
+     * 业务异常
+     */
+    @ExceptionHandler(ServiceException.class)
+    public AjaxResult handleServiceException(ServiceException e, HttpServletRequest request)
+    {
+        log.error(e.getMessage(), e);
+        Integer code = e.getCode();
+        return StringUtils.isNotNull(code) ? AjaxResult.error(code, e.getMessage()) : AjaxResult.error(e.getMessage());
     }
 
     @ExceptionHandler(value = ApiException.class)

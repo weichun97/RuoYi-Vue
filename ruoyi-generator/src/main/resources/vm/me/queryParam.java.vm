@@ -12,8 +12,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class ${ClassName}QueryParam {
 
 #foreach ($column in $columns)
-#if($column.query)
-#if($column.javaType == 'Date' && $column.queryType == 'BETWEEN')
+    #if($column.query)
+        #if($column.javaType == 'Date' && $column.queryType == 'BETWEEN')
     @DateTimeFormat(pattern = DatePattern.NORM_DATE_PATTERN)
     @ApiModelProperty(value = "$column.columnComment开始时间", example = "2023-01-01")
     private Date begin$column.capJavaField;
@@ -21,13 +21,16 @@ public class ${ClassName}QueryParam {
     @DateTimeFormat(pattern = DatePattern.NORM_DATE_PATTERN)
     @ApiModelProperty(value = "$column.columnComment结束时间", example = "2023-01-01")
     private Date end$column.capJavaField;
-#else
-#if($column.javaType == 'Date')
+        #else
+            #if($column.javaType == 'Date')
     @DateTimeFormat(pattern = DatePattern.NORM_DATE_PATTERN)
-#end
-    @ApiModelProperty(value = "$column.columnComment", example = "")
+    @ApiModelProperty(value = "$column.columnComment", example = "2023-01-01")
+            #else
+    @ApiModelProperty(value = "$column.columnComment #if($column.dictType != "")字典:$column.dictType#end", example = "")
+            #end
     private $column.javaType $column.javaField;
-#end
-#end
+        #end
+
+    #end
 #end
 }
