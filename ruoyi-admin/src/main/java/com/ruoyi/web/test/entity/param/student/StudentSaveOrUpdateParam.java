@@ -27,8 +27,8 @@ public class StudentSaveOrUpdateParam {
     @ApiModelProperty(value = "状态（0正常 1停用） 字典:sys_normal_disable", example = "")
     private String studentStatus;
 
-    @JsonFormat(pattern = DatePattern.NORM_DATETIME_PATTERN)
-    @ApiModelProperty(value = "生日", example = "2023-01-01 12:00:00")
+    @JsonFormat(pattern = DatePattern.NORM_DATE_PATTERN)
+    @ApiModelProperty(value = "生日", example = "2023-01-01")
     private Date studentBirthday;
 
 }

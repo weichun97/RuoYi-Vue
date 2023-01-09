@@ -1,0 +1,14 @@
+package ${packageName}.${moduleName}.entity.maps;
+
+import ${packageName}.${moduleName}.entity.param.${classname}.${ClassName}SaveOrUpdateParam;
+import ${packageName}.${moduleName}.entity.po.${ClassName}Entity;
+import ${packageName}.${moduleName}.entity.vo.${classname}.${ClassName}DetailVO;
+import org.mapstruct.Mapper;
+
+@Mapper(componentModel = "spring")
+public interface ${ClassName}Maps {
+
+    ${ClassName}Entity saveOrUpdateParamToPo(${ClassName}SaveOrUpdateParam saveOrUpdateParam);
+
+    ${ClassName}DetailVO poToDetailVo(${ClassName}Entity ${className}Entity);
+}

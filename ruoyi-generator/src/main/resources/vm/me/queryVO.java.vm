@@ -1,0 +1,46 @@
+package ${packageName}.${moduleName}.entity.vo.${classname};
+
+import cn.hutool.core.date.DatePattern;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.ruoyi.common.annotation.Excel;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+import java.util.Date;
+
+@Data
+@ApiModel
+public class ${ClassName}QueryVO {
+
+#foreach ($column in $columns)
+    #if($column.list)
+        #set($parentheseIndex=$column.columnComment.indexOf("（"))
+        #if($parentheseIndex != -1)
+            #set($comment=$column.columnComment.substring(0, $parentheseIndex))
+        #else
+            #set($comment=$column.columnComment)
+        #end
+        #if($column.javaField == 'createTime')
+    @JsonFormat(pattern = DatePattern.NORM_DATETIME_PATTERN)
+    @ApiModelProperty(value = "$column.columnComment", example = "2023-01-01 12:00:00")
+        #elseif($column.javaType == 'Date')
+    @JsonFormat(pattern = DatePattern.NORM_DATE_PATTERN)
+    @ApiModelProperty(value = "$column.columnComment", example = "2023-01-01")
+        #else
+    @ApiModelProperty(value = "$column.columnComment #if($column.dictType != "")字典:$column.dictType#end", example = "")
+        #end
+    #if(!$column.pk)
+        #if($column.dictType != "")
+    @Excel(name = "$comment", dictType = "$column.dictType")
+        #elseif($parentheseIndex != -1)
+    @Excel(name = "$comment", readConverterExp = "$column.readConverterExp()")
+        #else
+    @Excel(name = "$comment")
+        #end
+    #end
+    private $column.javaType $column.javaField;
+
+    #end
+#end
+}

@@ -1,0 +1,55 @@
+package ${packageName}.${moduleName}.service;
+
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.ruoyi.common.mybatis.FgocPage;
+import com.ruoyi.common.mybatis.PageParam;
+import ${packageName}.${moduleName}.entity.param.${classname}.${ClassName}QueryParam;
+import ${packageName}.${moduleName}.entity.param.${classname}.${ClassName}SaveOrUpdateParam;
+import ${packageName}.${moduleName}.entity.po.${ClassName}Entity;
+import ${packageName}.${moduleName}.entity.vo.${classname}.${ClassName}DetailVO;
+import ${packageName}.${moduleName}.entity.vo.${classname}.${ClassName}QueryVO;
+
+import javax.servlet.http.HttpServletResponse;
+
+public interface ${ClassName}Service extends IService<${ClassName}Entity> {
+
+    /**
+     * 分页
+     * @param pageParam
+     * @param queryParam
+     * @return
+     */
+    FgocPage<${ClassName}QueryVO> query(PageParam pageParam, ${ClassName}QueryParam queryParam);
+
+    /**
+     * 保存
+     * @param saveOrUpdateParam
+     */
+    void save(${ClassName}SaveOrUpdateParam saveOrUpdateParam);
+
+    /**
+     * 更新
+     * @param id
+     * @param saveOrUpdateParam
+     */
+    void update(Long id, ${ClassName}SaveOrUpdateParam saveOrUpdateParam);
+
+    /**
+     * 删除
+     * @param ids
+     */
+    void remove(Long[] ids);
+
+    /**
+     * 详情
+     * @param id
+     */
+    ${ClassName}DetailVO detail(Long id);
+
+    /**
+     * 导出
+     * @param response
+     * @param studentQueryParam
+     */
+    void export(HttpServletResponse response, ${ClassName}QueryParam studentQueryParam);
+}

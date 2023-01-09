@@ -1,4 +1,4 @@
-package com.ruoyi.web.test.maps;
+package com.ruoyi.web.test.entity.maps;
 
 import com.ruoyi.web.test.entity.param.student.StudentSaveOrUpdateParam;
 import com.ruoyi.web.test.entity.po.StudentEntity;

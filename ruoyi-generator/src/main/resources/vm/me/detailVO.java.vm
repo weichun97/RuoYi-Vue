@@ -1,4 +1,4 @@
-package ${packageName}.${moduleName}.entity.param.${classname};
+package ${packageName}.${moduleName}.entity.vo.${classname};
 
 import cn.hutool.core.date.DatePattern;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -6,13 +6,11 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Data
 @ApiModel
-public class ${ClassName}SaveOrUpdateParam {
+public class ${ClassName}DetailVO {
 
 #foreach ($column in $columns)
     #if($column.edit)
@@ -22,18 +20,11 @@ public class ${ClassName}SaveOrUpdateParam {
         #else
             #set($comment=$column.columnComment)
         #end
-        #if($column.required)
-            #if($column.javaType == 'String')
-    @NotBlank(message = "$comment不能为空")
-            #else
-    @NotNull(message = "$comment不能为空")
-            #end
-        #end
         #if($column.javaType == 'Date')
     @JsonFormat(pattern = DatePattern.NORM_DATE_PATTERN)
-    @ApiModelProperty(value = "$column.columnComment", example = "2023-01-01"#if($column.required), required = true#end)
+    @ApiModelProperty(value = "$column.columnComment", example = "2023-01-01")
         #else
-    @ApiModelProperty(value = "$column.columnComment #if($column.dictType != "")字典:$column.dictType#end", example = ""#if($column.required), required = true#end)
+    @ApiModelProperty(value = "$column.columnComment #if($column.dictType != "")字典:$column.dictType#end", example = "")
         #end
     private $column.javaType $column.javaField;
 

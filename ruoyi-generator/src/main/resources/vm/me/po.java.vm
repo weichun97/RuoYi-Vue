@@ -17,45 +17,17 @@ public class ${ClassName}Entity {
 
 #foreach ($column in $columns)
     /**
-   	 * $column.columnComment
-   	 */
-    @TableId(type = IdType.AUTO)
-    private Date begin$column.capJavaField;
+     * $column.columnComment
+     */
+    #if($column.pk)
+    @TableId#if($column.increment)(type = IdType.AUTO)#end
+    #else
+    @TableField(value = "$column.columnName"#if($column.javaField == "createTime"), fill = FieldFill.INSERT#end#if($column.javaField == "updateTime"), fill = FieldFill.UPDATE#end)
+    #end
+    #if($column.javaField == "deleteTime")
+    @TableLogic(value = "null", delval = "now()")
+    #end
+    private $column.javaType $column.javaField;
+
 #end
-    /**
-   	 * 学生名称
-   	 */
-    @TableField(value = "student_name")
-    private String studentName;
-
-    /**
-   	 * 年龄
-   	 */
-    @TableField(value = "student_age")
-    private Integer studentAge;
-
-    /**
-   	 * 爱好（0代码 1音乐 2电影）
-   	 */
-    @TableField(value = "student_hobby")
-    private String studentHobby;
-
-    /**
-   	 * 性别（0男 1女 2未知）
-   	 */
-    @TableField(value = "student_sex")
-    private String studentSex;
-
-    /**
-   	 * 状态（0正常 1停用）
-   	 */
-    @TableField(value = "student_status")
-    private String studentStatus;
-
-    /**
-   	 * 生日
-   	 */
-    @TableField(value = "student_birthday")
-    private Date studentBirthday;
-
 }

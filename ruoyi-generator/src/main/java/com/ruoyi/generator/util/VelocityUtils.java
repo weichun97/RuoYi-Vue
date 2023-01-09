@@ -135,13 +135,20 @@ public class VelocityUtils
         templates.add("vm/me/dao.java.vm");
         templates.add("vm/me/queryParam.java.vm");
         templates.add("vm/me/saveOrUpdateParam.java.vm");
+        templates.add("vm/me/po.java.vm");
+        templates.add("vm/me/detailVO.java.vm");
+        templates.add("vm/me/queryVO.java.vm");
+        templates.add("vm/me/maps.java.vm");
+        templates.add("vm/me/service.java.vm");
+        templates.add("vm/me/serviceImpl.java.vm");
+        templates.add("vm/me/dao.xml.vm");
 
-        templates.add("vm/java/domain.java.vm");
+//        templates.add("vm/java/domain.java.vm");
 //        templates.add("vm/java/mapper.java.vm");
-        templates.add("vm/java/service.java.vm");
-        templates.add("vm/java/serviceImpl.java.vm");
+//        templates.add("vm/java/service.java.vm");
+//        templates.add("vm/java/serviceImpl.java.vm");
 //        templates.add("vm/java/controller.java.vm");
-        templates.add("vm/xml/mapper.xml.vm");
+//        templates.add("vm/xml/mapper.xml.vm");
         templates.add("vm/sql/sql.vm");
         templates.add("vm/js/api.js.vm");
         if (GenConstants.TPL_CRUD.equals(tplCategory))

@@ -1,0 +1,65 @@
+package ${packageName}.${moduleName}.service.impl;
+
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ruoyi.common.api.ResultCode;
+import com.ruoyi.common.exception.FgocAssert;
+import com.ruoyi.common.mybatis.FgocPage;
+import com.ruoyi.common.mybatis.PageParam;
+import com.ruoyi.common.utils.poi.ExcelUtil;
+import ${packageName}.${moduleName}.entity.dao.${ClassName}Dao;
+import ${packageName}.${moduleName}.entity.maps.${ClassName}Maps;
+import ${packageName}.${moduleName}.entity.param.${classname}.${ClassName}QueryParam;
+import ${packageName}.${moduleName}.entity.param.${classname}.${ClassName}SaveOrUpdateParam;
+import ${packageName}.${moduleName}.entity.po.${ClassName}Entity;
+import ${packageName}.${moduleName}.entity.vo.${classname}.${ClassName}DetailVO;
+import ${packageName}.${moduleName}.entity.vo.${classname}.${ClassName}QueryVO;
+import ${packageName}.${moduleName}.service.${ClassName}Service;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
+import java.util.List;
+
+@Service
+public class ${ClassName}ServiceImpl extends ServiceImpl<${ClassName}Dao, ${ClassName}Entity> implements ${ClassName}Service {
+
+    @Resource
+    private ${ClassName}Maps ${className}Maps;
+
+    @Override
+    public FgocPage<${ClassName}QueryVO> query(PageParam pageParam, ${ClassName}QueryParam queryParam) {
+        return baseMapper.query(FgocPage.getPage(pageParam), queryParam);
+    }
+
+    @Override
+    public void save(${ClassName}SaveOrUpdateParam saveOrUpdateParam) {
+        save(${className}Maps.saveOrUpdateParamToPo(saveOrUpdateParam));
+    }
+
+    @Override
+    public void update(Long id, ${ClassName}SaveOrUpdateParam saveOrUpdateParam) {
+        update(${className}Maps.saveOrUpdateParamToPo(saveOrUpdateParam),
+                new LambdaQueryWrapper<${ClassName}Entity>().eq(${ClassName}Entity::get${pkColumn.capJavaField}, id));
+    }
+
+    @Override
+    public void remove(Long[] ids) {
+        removeByIds(Arrays.asList(ids));
+    }
+
+    @Override
+    public ${ClassName}DetailVO detail(Long id) {
+        ${ClassName}Entity ${className}Entity = getById(id);
+        FgocAssert.assertNotNull(${className}Entity, ResultCode.DATA_DOES_NOT_EXIST);
+        return ${className}Maps.poToDetailVo(${className}Entity);
+    }
+
+    @Override
+    public void export(HttpServletResponse response, ${ClassName}QueryParam ${className}QueryParam) {
+        List<${ClassName}QueryVO> list = baseMapper.query(${className}QueryParam);
+        ExcelUtil<${ClassName}QueryVO> util = new ExcelUtil<>(${ClassName}QueryVO.class);
+        util.exportExcel(response, list, "${table.tableComment}");
+    }
+}
