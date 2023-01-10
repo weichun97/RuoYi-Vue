@@ -39,7 +39,6 @@ public class VelocityUtils
     public static VelocityContext prepareContext(GenTable genTable)
     {
         String moduleName = genTable.getModuleName();
-        String businessName = genTable.getBusinessName();
         String packageName = genTable.getPackageName();
         String tplCategory = genTable.getTplCategory();
         String functionName = genTable.getFunctionName();
@@ -61,7 +60,7 @@ public class VelocityUtils
         velocityContext.put("datetime", DateUtils.getDate());
         velocityContext.put("pkColumn", genTable.getPkColumn());
         velocityContext.put("importList", getImportList(genTable));
-        velocityContext.put("permissionPrefix", getPermissionPrefix(moduleName, businessName));
+        velocityContext.put("permissionPrefix", getPermissionPrefix(moduleName, StringUtils.uncapitalize(genTable.getClassName())));
         velocityContext.put("columns", genTable.getColumns());
         velocityContext.put("table", genTable);
         velocityContext.put("dicts", getDicts(genTable));
@@ -187,7 +186,9 @@ public class VelocityUtils
         // 模块路径
         String modulePath = moduleName != null ? moduleName + "/" : "";
         // 大写类名
-        String className = genTable.getClassName();
+        String ClassName = genTable.getClassName();
+        // 小写类名
+        String className = StrUtil.lowerFirst(genTable.getClassName());
         // 全小写类名
         String classname = className.toLowerCase();
         // 业务名称
@@ -203,23 +204,23 @@ public class VelocityUtils
         }
         else if (template.contains("controller.java.vm"))
         {
-            fileName = StringUtils.format("{}/{}controller/{}Controller.java", javaPath, modulePath, className);
+            fileName = StringUtils.format("{}/{}controller/{}Controller.java", javaPath, modulePath, ClassName);
         }
         else if (template.contains("dao.java.vm"))
         {
-            fileName = StringUtils.format("{}/{}entity/dao/{}Dao.java", javaPath, modulePath, className);
+            fileName = StringUtils.format("{}/{}entity/dao/{}Dao.java", javaPath, modulePath, ClassName);
         }
         else if (template.contains("dao.xml.vm"))
         {
-            fileName = StringUtils.format("{}/{}Dao.xml", mybatisPath, className);
+            fileName = StringUtils.format("{}/{}Dao.xml", mybatisPath, ClassName);
         }
         else if (template.contains("detailVO.java.vm"))
         {
-            fileName = StringUtils.format("{}/{}entity/vo/{}/{}DetailVO.java", javaPath, modulePath, classname, className);
+            fileName = StringUtils.format("{}/{}entity/vo/{}/{}DetailVO.java", javaPath, modulePath, classname, ClassName);
         }
         else if (template.contains("exportVO.java.vm"))
         {
-            fileName = StringUtils.format("{}/{}entity/vo/{}/{}ExportVO.java", javaPath, modulePath, classname, className);
+            fileName = StringUtils.format("{}/{}entity/vo/{}/{}ExportVO.java", javaPath, modulePath, classname, ClassName);
         }
         else if (template.contains("index.vue.vm"))
         {
@@ -227,31 +228,31 @@ public class VelocityUtils
         }
         else if (template.contains("maps.java.vm"))
         {
-            fileName = StringUtils.format("{}/{}entity/maps/{}Maps.java", javaPath, modulePath, className);
+            fileName = StringUtils.format("{}/{}entity/maps/{}Maps.java", javaPath, modulePath, ClassName);
         }
         else if (template.contains("po.java.vm"))
         {
-            fileName = StringUtils.format("{}/{}entity/po/{}Entity.java", javaPath, modulePath, className);
+            fileName = StringUtils.format("{}/{}entity/po/{}Entity.java", javaPath, modulePath, ClassName);
         }
         else if (template.contains("queryParam.java.vm"))
         {
-            fileName = StringUtils.format("{}/{}entity/param/{}/{}QueryParam.java", javaPath, modulePath, classname, className);
+            fileName = StringUtils.format("{}/{}entity/param/{}/{}QueryParam.java", javaPath, modulePath, classname, ClassName);
         }
         else if (template.contains("queryVO.java.vm"))
         {
-            fileName = StringUtils.format("{}/{}entity/vo/{}/{}QueryVO.java", javaPath, modulePath, classname, className);
+            fileName = StringUtils.format("{}/{}entity/vo/{}/{}QueryVO.java", javaPath, modulePath, classname, ClassName);
         }
         else if (template.contains("saveOrUpdateParam.java.vm"))
         {
-            fileName = StringUtils.format("{}/{}entity/param/{}/{}SaveOrUpdateParam.java", javaPath, modulePath, classname, className);
+            fileName = StringUtils.format("{}/{}entity/param/{}/{}SaveOrUpdateParam.java", javaPath, modulePath, classname, ClassName);
         }
         else if (template.contains("service.java.vm"))
         {
-            fileName = StringUtils.format("{}/{}service/{}Service.java", javaPath, modulePath, className);
+            fileName = StringUtils.format("{}/{}service/{}Service.java", javaPath, modulePath, ClassName);
         }
         else if (template.contains("serviceImpl.java.vm"))
         {
-            fileName = StringUtils.format("{}/{}service/impl/{}ServiceImpl.java", javaPath, modulePath, className);
+            fileName = StringUtils.format("{}/{}service/impl/{}ServiceImpl.java", javaPath, modulePath, ClassName);
         }
         else if (template.contains("sql.vm"))
         {
@@ -344,13 +345,13 @@ public class VelocityUtils
      * 获取权限前缀
      *
      * @param moduleName 模块名称
-     * @param businessName 业务名称
+     * @param className 小写开头类名
      * @return 返回权限前缀
      */
-    public static String getPermissionPrefix(String moduleName, String businessName)
+    public static String getPermissionPrefix(String moduleName, String className)
     {
         return StrUtil.isNotBlank(moduleName) ?
-            StringUtils.format("{}:{}", moduleName, businessName) : businessName;
+            StringUtils.format("{}:{}", moduleName, className) : className;
     }
 
     /**

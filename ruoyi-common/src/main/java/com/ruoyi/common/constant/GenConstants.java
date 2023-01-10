@@ -44,6 +44,9 @@ public class GenConstants
     public static final String[] COLUMNTYPE_NUMBER = { "tinyint", "smallint", "mediumint", "int", "number", "integer",
             "bit", "bigint", "float", "double", "decimal" };
 
+    /** 页面不需要导出字段 */
+    public static final String[] COLUMNNAME_NOT_EXPORT = { "id", "create_by", "create_time", "update_by", "update_time", "delete_by", "delete_time", "del_flag"};
+
     /** 页面不需要编辑字段 */
     public static final String[] COLUMNNAME_NOT_EDIT = { "id", "create_by", "create_time", "update_by", "update_time", "delete_by", "delete_time", "del_flag"};
 

@@ -224,7 +224,7 @@ export default {
         open: false,
         title: "代码预览",
         data: {},
-        activeName: "domain.java"
+        activeName: "index.vue"
       }
     };
   },
@@ -294,7 +294,6 @@ export default {
       previewTable(row.tableId).then(response => {
         this.preview.data = response.data;
         this.preview.open = true;
-        this.preview.activeName = "domain.java";
       });
     },
     /** 高亮显示 */

@@ -16,28 +16,28 @@
                 #end
                 #if($column.query)
                     #if($column.queryType == "EQ")
-                        <if test="queryParam.$column.javaField != null #if($column.javaType == 'String' )and queryParam.${column.javaField}.trim() != ''#elseif($column.javaType == 'Integer' || $column.javaType == 'Long')and queryParam.${column.javaField} != 0#end">
+                        <if test="queryParam.$column.javaField != null #if($column.javaType == 'String' )and queryParam.${column.javaField}.trim() != ''#end">
                             and $column.columnName = #{queryParam.$column.javaField}
                         </if>
                     #elseif(${column.queryType} == "NE")
-                        <if test="queryParam.$column.javaField != null #if($column.javaType == 'String' ) and queryParam.${column.javaField}.trim() != ''#elseif($column.javaType == 'Integer' || $column.javaType == 'Long')and queryParam.${column.javaField} != 0#end">
+                        <if test="queryParam.$column.javaField != null #if($column.javaType == 'String' ) and queryParam.${column.javaField}.trim() != ''#end">
                             and $column.columnName != #{queryParam.$column.javaField}
                         </if>
                     #elseif(${column.queryType} == "GT")
-                        <if test="queryParam.$column.javaField != null #if($column.javaType == 'String' ) and queryParam.${column.javaField}.trim() != ''#elseif($column.javaType == 'Integer' || $column.javaType == 'Long')and queryParam.${column.javaField} != 0#end">
+                        <if test="queryParam.$column.javaField != null #if($column.javaType == 'String' ) and queryParam.${column.javaField}.trim() != ''#end">
                             and $column.columnName &gt; #{queryParam.$column.javaField}
                         </if>
                     #elseif(${column.queryType} == "GTE")
-                        <if test="queryParam.$column.javaField != null #if($column.javaType == 'String' ) and queryParam.${column.javaField}.trim() != ''#elseif($column.javaType == 'Integer' || $column.javaType == 'Long')and queryParam.${column.javaField} != 0#end">
+                        <if test="queryParam.$column.javaField != null #if($column.javaType == 'String' ) and queryParam.${column.javaField}.trim() != ''#end">
                             and $column.columnName &gt;= #{queryParam.$column.javaField}
                         </if>
                     #elseif(${column.queryType} == "LT")
-                        <if test="queryParam.$column.javaField != null #if($column.javaType == 'String' ) and queryParam.${column.javaField}.trim() != ''#elseif($column.javaType == 'Integer' || $column.javaType == 'Long')and queryParam.${column.javaField} != 0#end">
-                            and $column.columnName &lt; #{queryParam.$column.javaField}
+                        <if test="queryParam.$column.javaField != null #if($column.javaType == 'String' ) and queryParam.${column.javaField}.trim() != ''#end">
+                            and $column.columnName <![CDATA[ < ]]> #{queryParam.$column.javaField}
                         </if>
                     #elseif(${column.queryType} == "LTE")
-                        <if test="queryParam.$column.javaField != null #if($column.javaType == 'String' ) and queryParam.${column.javaField}.trim() != ''#elseif($column.javaType == 'Integer' || $column.javaType == 'Long')and queryParam.${column.javaField} != 0#end">
-                            and $column.columnName &lt;= #{queryParam.$column.javaField}
+                        <if test="queryParam.$column.javaField != null #if($column.javaType == 'String' ) and queryParam.${column.javaField}.trim() != ''#end">
+                            and $column.columnName <![CDATA[ <= ]]> #{queryParam.$column.javaField}
                         </if>
                     #elseif(${column.queryType} == "LIKE")
                         <if test="queryParam.$column.javaField != null #if($column.javaType == 'String' ) and queryParam.${column.javaField}.trim() != ''#end">

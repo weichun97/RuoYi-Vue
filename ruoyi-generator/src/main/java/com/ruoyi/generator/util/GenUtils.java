@@ -78,9 +78,11 @@ public class GenUtils
             }
         }
 
-        // 导出字段（默认所有字段都需要插入）
-        column.setIsExport(GenConstants.REQUIRE);
-
+        // 导出字段
+        if (!arraysContains(GenConstants.COLUMNNAME_NOT_EXPORT, columnName) && !column.isPk())
+        {
+            column.setIsExport(GenConstants.REQUIRE);
+        }
         // 编辑字段
         if (!arraysContains(GenConstants.COLUMNNAME_NOT_EDIT, columnName) && !column.isPk())
         {

@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel("Response")
+@ApiModel
 public class Response<T> {
 
     @ApiModelProperty(value = "状态码")
