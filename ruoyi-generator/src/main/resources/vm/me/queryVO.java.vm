@@ -1,4 +1,4 @@
-package ${packageName}.${moduleName}.entity.vo.${classname};
+package ${packageName}#if($moduleName).${moduleName}#end.entity.vo.${classname};
 
 import cn.hutool.core.date.DatePattern;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -30,15 +30,6 @@ public class ${ClassName}QueryVO {
         #else
     @ApiModelProperty(value = "$column.columnComment #if($column.dictType != "")字典:$column.dictType#end", example = "")
         #end
-    #if(!$column.pk)
-        #if($column.dictType != "")
-    @Excel(name = "$comment", dictType = "$column.dictType")
-        #elseif($parentheseIndex != -1)
-    @Excel(name = "$comment", readConverterExp = "$column.readConverterExp()")
-        #else
-    @Excel(name = "$comment")
-        #end
-    #end
     private $column.javaType $column.javaField;
 
     #end

@@ -46,7 +46,6 @@ public class GenTable extends BaseEntity
     private String packageName;
 
     /** 生成模块名 */
-    @NotBlank(message = "生成模块名不能为空")
     private String moduleName;
 
     /** 生成业务名 */

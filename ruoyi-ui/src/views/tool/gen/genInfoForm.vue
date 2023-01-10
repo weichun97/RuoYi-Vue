@@ -243,9 +243,6 @@ export default {
         packageName: [
           { required: true, message: "请输入生成包路径", trigger: "blur" }
         ],
-        moduleName: [
-          { required: true, message: "请输入生成模块名", trigger: "blur" }
-        ],
         businessName: [
           { required: true, message: "请输入生成业务名", trigger: "blur" }
         ],

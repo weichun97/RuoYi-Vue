@@ -1,13 +1,13 @@
-package ${packageName}.${moduleName}.service;
+package ${packageName}#if($moduleName).${moduleName}#end.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.ruoyi.common.mybatis.FgocPage;
 import com.ruoyi.common.mybatis.PageParam;
-import ${packageName}.${moduleName}.entity.param.${classname}.${ClassName}QueryParam;
-import ${packageName}.${moduleName}.entity.param.${classname}.${ClassName}SaveOrUpdateParam;
-import ${packageName}.${moduleName}.entity.po.${ClassName}Entity;
-import ${packageName}.${moduleName}.entity.vo.${classname}.${ClassName}DetailVO;
-import ${packageName}.${moduleName}.entity.vo.${classname}.${ClassName}QueryVO;
+import ${packageName}#if($moduleName).${moduleName}#end.entity.param.${classname}.${ClassName}QueryParam;
+import ${packageName}#if($moduleName).${moduleName}#end.entity.param.${classname}.${ClassName}SaveOrUpdateParam;
+import ${packageName}#if($moduleName).${moduleName}#end.entity.po.${ClassName}Entity;
+import ${packageName}#if($moduleName).${moduleName}#end.entity.vo.${classname}.${ClassName}DetailVO;
+import ${packageName}#if($moduleName).${moduleName}#end.entity.vo.${classname}.${ClassName}QueryVO;
 
 import javax.servlet.http.HttpServletResponse;
 

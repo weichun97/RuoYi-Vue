@@ -1,4 +1,4 @@
-package ${packageName}.${moduleName}.service.impl;
+package ${packageName}#if($moduleName).${moduleName}#end.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -7,14 +7,15 @@ import com.ruoyi.common.exception.FgocAssert;
 import com.ruoyi.common.mybatis.FgocPage;
 import com.ruoyi.common.mybatis.PageParam;
 import com.ruoyi.common.utils.poi.ExcelUtil;
-import ${packageName}.${moduleName}.entity.dao.${ClassName}Dao;
-import ${packageName}.${moduleName}.entity.maps.${ClassName}Maps;
-import ${packageName}.${moduleName}.entity.param.${classname}.${ClassName}QueryParam;
-import ${packageName}.${moduleName}.entity.param.${classname}.${ClassName}SaveOrUpdateParam;
-import ${packageName}.${moduleName}.entity.po.${ClassName}Entity;
-import ${packageName}.${moduleName}.entity.vo.${classname}.${ClassName}DetailVO;
-import ${packageName}.${moduleName}.entity.vo.${classname}.${ClassName}QueryVO;
-import ${packageName}.${moduleName}.service.${ClassName}Service;
+import ${packageName}#if($moduleName).${moduleName}#end.entity.dao.${ClassName}Dao;
+import ${packageName}#if($moduleName).${moduleName}#end.entity.maps.${ClassName}Maps;
+import ${packageName}#if($moduleName).${moduleName}#end.entity.param.${classname}.${ClassName}QueryParam;
+import ${packageName}#if($moduleName).${moduleName}#end.entity.param.${classname}.${ClassName}SaveOrUpdateParam;
+import ${packageName}#if($moduleName).${moduleName}#end.entity.po.${ClassName}Entity;
+import ${packageName}#if($moduleName).${moduleName}#end.entity.vo.${classname}.${ClassName}DetailVO;
+import ${packageName}#if($moduleName).${moduleName}#end.entity.vo.${classname}.${ClassName}QueryVO;
+import ${packageName}#if($moduleName).${moduleName}#end.entity.vo.${classname}.${ClassName}ExportVO;
+import ${packageName}#if($moduleName).${moduleName}#end.service.${ClassName}Service;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -58,8 +59,8 @@ public class ${ClassName}ServiceImpl extends ServiceImpl<${ClassName}Dao, ${Clas
 
     @Override
     public void export(HttpServletResponse response, ${ClassName}QueryParam ${className}QueryParam) {
-        List<${ClassName}QueryVO> list = baseMapper.query(${className}QueryParam);
-        ExcelUtil<${ClassName}QueryVO> util = new ExcelUtil<>(${ClassName}QueryVO.class);
+        List<${ClassName}ExportVO> list = baseMapper.export(${className}QueryParam);
+        ExcelUtil<${ClassName}ExportVO> util = new ExcelUtil<>(${ClassName}ExportVO.class);
         util.exportExcel(response, list, "${table.tableComment}");
     }
 }

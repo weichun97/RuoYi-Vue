@@ -1,56 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="${packageName}.${moduleName}.entity.dao.StudentDao">
+<mapper namespace="${packageName}#if($moduleName).${moduleName}#end.entity.dao.${ClassName}Dao">
 
-    <select id="query" resultType="${packageName}.${moduleName}.entity.vo.${classname}.StudentQueryVO">
+    <sql id="commonQuery">
         select
-#foreach($column in $columns)
+        #foreach($column in $columns)
             t1.$column.columnName#if($foreach.count != $columns.size()),#end
-#end
-        from sys_student t1
-        <where>
-#foreach($column in $columns)
-    #if($column.query)
-        #if($column.queryType == "EQ")
-            <if test="queryParam.$column.javaField != null #if($column.javaType == 'String' )and queryParam.${column.javaField}.trim() != ''#elseif($column.javaType == 'Integer' || $column.javaType == 'Long')and queryParam.${column.javaField} != 0#end">
-                and $column.columnName = #{queryParam.$column.javaField}
-            </if>
-        #elseif(${column.queryType} == "NE")
-            <if test="queryParam.$column.javaField != null #if($column.javaType == 'String' ) and queryParam.${column.javaField}.trim() != ''#elseif($column.javaType == 'Integer' || $column.javaType == 'Long')and queryParam.${column.javaField} != 0#end">
-                and $column.columnName != #{queryParam.$column.javaField}
-            </if>
-        #elseif(${column.queryType} == "GT")
-            <if test="queryParam.$column.javaField != null #if($column.javaType == 'String' ) and queryParam.${column.javaField}.trim() != ''#elseif($column.javaType == 'Integer' || $column.javaType == 'Long')and queryParam.${column.javaField} != 0#end">
-                and $column.columnName &gt; #{queryParam.$column.javaField}
-            </if>
-        #elseif(${column.queryType} == "GTE")
-            <if test="queryParam.$column.javaField != null #if($column.javaType == 'String' ) and queryParam.${column.javaField}.trim() != ''#elseif($column.javaType == 'Integer' || $column.javaType == 'Long')and queryParam.${column.javaField} != 0#end">
-                and $column.columnName &gt;= #{queryParam.$column.javaField}
-            </if>
-        #elseif(${column.queryType} == "LT")
-            <if test="queryParam.$column.javaField != null #if($column.javaType == 'String' ) and queryParam.${column.javaField}.trim() != ''#elseif($column.javaType == 'Integer' || $column.javaType == 'Long')and queryParam.${column.javaField} != 0#end">
-                and $column.columnName &lt; #{queryParam.$column.javaField}
-            </if>
-        #elseif(${column.queryType} == "LTE")
-            <if test="queryParam.$column.javaField != null #if($column.javaType == 'String' ) and queryParam.${column.javaField}.trim() != ''#elseif($column.javaType == 'Integer' || $column.javaType == 'Long')and queryParam.${column.javaField} != 0#end">
-                and $column.columnName &lt;= #{queryParam.$column.javaField}
-            </if>
-        #elseif(${column.queryType} == "LIKE")
-            <if test="queryParam.$column.javaField != null #if($column.javaType == 'String' ) and queryParam.${column.javaField}.trim() != ''#end">
-                and $column.columnName like concat('%', #{queryParam.$column.javaField}, '%')
-            </if>
-        #elseif(${column.queryType} == "BETWEEN")
-            <if test="queryParam.begin$column.capJavaField != null">
-                and $column.columnName >= #{queryParam.begin$column.capJavaField}
-            </if>
-            <if test="queryParam.end$column.capJavaField != null">
-                and $column.columnName <![CDATA[ < ]]> DATE_ADD(#{queryParam.end$column.capJavaField},INTERVAL 1 DAY)
-            </if>
         #end
-    #end
-#end
+        from ${tableName} t1
+        <where>
+            #foreach($column in $columns)
+                #if($column.javaField == "deleteTime")
+                    and t1.delete_time is null
+                #end
+                #if($column.query)
+                    #if($column.queryType == "EQ")
+                        <if test="queryParam.$column.javaField != null #if($column.javaType == 'String' )and queryParam.${column.javaField}.trim() != ''#elseif($column.javaType == 'Integer' || $column.javaType == 'Long')and queryParam.${column.javaField} != 0#end">
+                            and $column.columnName = #{queryParam.$column.javaField}
+                        </if>
+                    #elseif(${column.queryType} == "NE")
+                        <if test="queryParam.$column.javaField != null #if($column.javaType == 'String' ) and queryParam.${column.javaField}.trim() != ''#elseif($column.javaType == 'Integer' || $column.javaType == 'Long')and queryParam.${column.javaField} != 0#end">
+                            and $column.columnName != #{queryParam.$column.javaField}
+                        </if>
+                    #elseif(${column.queryType} == "GT")
+                        <if test="queryParam.$column.javaField != null #if($column.javaType == 'String' ) and queryParam.${column.javaField}.trim() != ''#elseif($column.javaType == 'Integer' || $column.javaType == 'Long')and queryParam.${column.javaField} != 0#end">
+                            and $column.columnName &gt; #{queryParam.$column.javaField}
+                        </if>
+                    #elseif(${column.queryType} == "GTE")
+                        <if test="queryParam.$column.javaField != null #if($column.javaType == 'String' ) and queryParam.${column.javaField}.trim() != ''#elseif($column.javaType == 'Integer' || $column.javaType == 'Long')and queryParam.${column.javaField} != 0#end">
+                            and $column.columnName &gt;= #{queryParam.$column.javaField}
+                        </if>
+                    #elseif(${column.queryType} == "LT")
+                        <if test="queryParam.$column.javaField != null #if($column.javaType == 'String' ) and queryParam.${column.javaField}.trim() != ''#elseif($column.javaType == 'Integer' || $column.javaType == 'Long')and queryParam.${column.javaField} != 0#end">
+                            and $column.columnName &lt; #{queryParam.$column.javaField}
+                        </if>
+                    #elseif(${column.queryType} == "LTE")
+                        <if test="queryParam.$column.javaField != null #if($column.javaType == 'String' ) and queryParam.${column.javaField}.trim() != ''#elseif($column.javaType == 'Integer' || $column.javaType == 'Long')and queryParam.${column.javaField} != 0#end">
+                            and $column.columnName &lt;= #{queryParam.$column.javaField}
+                        </if>
+                    #elseif(${column.queryType} == "LIKE")
+                        <if test="queryParam.$column.javaField != null #if($column.javaType == 'String' ) and queryParam.${column.javaField}.trim() != ''#end">
+                            and $column.columnName like concat('%', #{queryParam.$column.javaField}, '%')
+                        </if>
+                    #elseif(${column.queryType} == "BETWEEN")
+                        <if test="queryParam.begin$column.capJavaField != null">
+                            and $column.columnName >= #{queryParam.begin$column.capJavaField}
+                        </if>
+                        <if test="queryParam.end$column.capJavaField != null">
+                            and $column.columnName <![CDATA[ < ]]> DATE_ADD(#{queryParam.end$column.capJavaField},INTERVAL 1 DAY)
+                        </if>
+                    #end
+                #end
+            #end
         </where>
         order by t1.${pkColumn.columnName} desc
+    </sql>
+
+    <select id="query" resultType="${packageName}#if($moduleName).${moduleName}#end.entity.vo.${classname}.${ClassName}QueryVO">
+        <include refid="commonQuery"/>
+    </select>
+
+    <select id="export" resultType="${packageName}#if($moduleName).${moduleName}#end.entity.vo.${classname}.${ClassName}ExportVO">
+        <include refid="commonQuery"/>
     </select>
 </mapper>

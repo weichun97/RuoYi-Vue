@@ -13,6 +13,7 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -40,6 +41,18 @@ public class FgocGlobalExceptionHandler {
     }
 
     /**
+     * 请求方式不支持
+     */
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public AjaxResult handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException e,
+                                                          HttpServletRequest request)
+    {
+        String requestURI = request.getRequestURI();
+        log.error("请求地址'{}',不支持'{}'请求", requestURI, e.getMethod());
+        return AjaxResult.error(e.getMessage());
+    }
+
+    /**
      * 业务异常
      */
     @ExceptionHandler(ServiceException.class)
@@ -48,6 +61,15 @@ public class FgocGlobalExceptionHandler {
         log.error(e.getMessage(), e);
         Integer code = e.getCode();
         return StringUtils.isNotNull(code) ? AjaxResult.error(code, e.getMessage()) : AjaxResult.error(e.getMessage());
+    }
+
+    /**
+     * 演示模式异常
+     */
+    @ExceptionHandler(DemoModeException.class)
+    public AjaxResult handleDemoModeException(DemoModeException e)
+    {
+        return AjaxResult.error("演示模式，不允许操作");
     }
 
     @ExceptionHandler(value = ApiException.class)
@@ -92,7 +114,7 @@ public class FgocGlobalExceptionHandler {
     @ExceptionHandler(value = {Exception.class})
     public Response handle(Exception e) {
         log.error(e.getMessage(), e);
-        return Response.failed(ResultCode.FAILED);
+        return Response.failed(e.getMessage());
     }
 
 }

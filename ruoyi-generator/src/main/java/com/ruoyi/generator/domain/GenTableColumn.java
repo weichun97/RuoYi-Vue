@@ -44,8 +44,8 @@ public class GenTableColumn extends BaseEntity
     /** 是否必填（1是） */
     private String isRequired;
 
-    /** 是否为插入字段（1是） */
-    private String isInsert;
+    /** 是否为导出字段（1是） */
+    private String isExport;
 
     /** 是否编辑字段（1是） */
     private String isEdit;
@@ -203,24 +203,24 @@ public class GenTableColumn extends BaseEntity
         return isRequired != null && StringUtils.equals("1", isRequired);
     }
 
-    public void setIsInsert(String isInsert)
+    public void setIsExport(String isExport)
     {
-        this.isInsert = isInsert;
+        this.isExport = isExport;
     }
 
-    public String getIsInsert()
+    public String getIsExport()
     {
-        return isInsert;
+        return isExport;
     }
 
-    public boolean isInsert()
+    public boolean isExport()
     {
-        return isInsert(this.isInsert);
+        return isExport(this.isExport);
     }
 
-    public boolean isInsert(String isInsert)
+    public boolean isExport(String isExport)
     {
-        return isInsert != null && StringUtils.equals("1", isInsert);
+        return isExport != null && StringUtils.equals("1", isExport);
     }
 
     public void setIsEdit(String isEdit)
@@ -235,7 +235,7 @@ public class GenTableColumn extends BaseEntity
 
     public boolean isEdit()
     {
-        return isInsert(this.isEdit);
+        return isExport(this.isEdit);
     }
 
     public boolean isEdit(String isEdit)

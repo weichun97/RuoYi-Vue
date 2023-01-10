@@ -1,4 +1,4 @@
-package ${packageName}.${moduleName}.entity.param.${classname};
+package ${packageName}#if($moduleName).${moduleName}#end.entity.param.${classname};
 
 import cn.hutool.core.date.DatePattern;
 import com.fasterxml.jackson.annotation.JsonFormat;

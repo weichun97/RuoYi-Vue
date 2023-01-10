@@ -1,6 +1,8 @@
 package com.ruoyi.framework.web.exception;
 
 import javax.servlet.http.HttpServletRequest;
+
+import com.ruoyi.common.exception.FgocGlobalExceptionHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.AccessDeniedException;
@@ -17,9 +19,11 @@ import com.ruoyi.common.utils.StringUtils;
 
 /**
  * 全局异常处理器
+ * 已废弃，替代类 {@link FgocGlobalExceptionHandler}
  * 
  * @author ruoyi
  */
+@Deprecated
 @RestControllerAdvice
 public class GlobalExceptionHandler
 {

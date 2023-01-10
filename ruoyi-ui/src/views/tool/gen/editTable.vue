@@ -43,9 +43,9 @@
             </template>
           </el-table-column>
 
-          <el-table-column label="插入" min-width="5%">
+          <el-table-column label="导出" min-width="5%">
             <template slot-scope="scope">
-              <el-checkbox true-label="1" false-label="0" v-model="scope.row.isInsert"></el-checkbox>
+              <el-checkbox true-label="1" false-label="0" v-model="scope.row.isExport"></el-checkbox>
             </template>
           </el-table-column>
           <el-table-column label="编辑" min-width="5%">

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import cn.hutool.core.util.StrUtil;
 import org.apache.velocity.VelocityContext;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
@@ -137,11 +139,14 @@ public class VelocityUtils
         templates.add("vm/me/saveOrUpdateParam.java.vm");
         templates.add("vm/me/po.java.vm");
         templates.add("vm/me/detailVO.java.vm");
+        templates.add("vm/me/exportVO.java.vm");
         templates.add("vm/me/queryVO.java.vm");
         templates.add("vm/me/maps.java.vm");
         templates.add("vm/me/service.java.vm");
         templates.add("vm/me/serviceImpl.java.vm");
         templates.add("vm/me/dao.xml.vm");
+        templates.add("vm/me/sql.vm");
+        templates.add("vm/me/api.js.vm");
 
 //        templates.add("vm/java/domain.java.vm");
 //        templates.add("vm/java/mapper.java.vm");
@@ -149,11 +154,12 @@ public class VelocityUtils
 //        templates.add("vm/java/serviceImpl.java.vm");
 //        templates.add("vm/java/controller.java.vm");
 //        templates.add("vm/xml/mapper.xml.vm");
-        templates.add("vm/sql/sql.vm");
-        templates.add("vm/js/api.js.vm");
+//        templates.add("vm/sql/sql.vm");
+//        templates.add("vm/js/api.js.vm");
         if (GenConstants.TPL_CRUD.equals(tplCategory))
         {
-            templates.add("vm/vue/index.vue.vm");
+            templates.add("vm/me/index.vue.vm");
+//            templates.add("vm/vue/index.vue.vm");
         }
         else if (GenConstants.TPL_TREE.equals(tplCategory))
         {
@@ -178,58 +184,78 @@ public class VelocityUtils
         String packageName = genTable.getPackageName();
         // 模块名
         String moduleName = genTable.getModuleName();
+        // 模块路径
+        String modulePath = moduleName != null ? moduleName + "/" : "";
         // 大写类名
         String className = genTable.getClassName();
+        // 全小写类名
+        String classname = className.toLowerCase();
         // 业务名称
         String businessName = genTable.getBusinessName();
 
         String javaPath = PROJECT_PATH + "/" + StringUtils.replace(packageName, ".", "/");
-        String mybatisPath = MYBATIS_PATH + "/" + moduleName;
+        String mybatisPath = MYBATIS_PATH;
         String vuePath = "vue";
 
-        if (template.contains("domain.java.vm"))
+        if (template.contains("api.js.vm"))
         {
-            fileName = StringUtils.format("{}/domain/{}.java", javaPath, className);
-        }
-        if (template.contains("sub-domain.java.vm") && StringUtils.equals(GenConstants.TPL_SUB, genTable.getTplCategory()))
-        {
-            fileName = StringUtils.format("{}/domain/{}.java", javaPath, genTable.getSubTable().getClassName());
-        }
-        else if (template.contains("mapper.java.vm"))
-        {
-            fileName = StringUtils.format("{}/mapper/{}Mapper.java", javaPath, className);
-        }
-        else if (template.contains("service.java.vm"))
-        {
-            fileName = StringUtils.format("{}/service/I{}Service.java", javaPath, className);
-        }
-        else if (template.contains("serviceImpl.java.vm"))
-        {
-            fileName = StringUtils.format("{}/service/impl/{}ServiceImpl.java", javaPath, className);
+            fileName = StringUtils.format("{}/api/{}{}.js", vuePath, modulePath, className);
         }
         else if (template.contains("controller.java.vm"))
         {
-            fileName = StringUtils.format("{}/controller/{}Controller.java", javaPath, className);
+            fileName = StringUtils.format("{}/{}controller/{}Controller.java", javaPath, modulePath, className);
         }
-        else if (template.contains("mapper.xml.vm"))
+        else if (template.contains("dao.java.vm"))
         {
-            fileName = StringUtils.format("{}/{}Mapper.xml", mybatisPath, className);
+            fileName = StringUtils.format("{}/{}entity/dao/{}Dao.java", javaPath, modulePath, className);
+        }
+        else if (template.contains("dao.xml.vm"))
+        {
+            fileName = StringUtils.format("{}/{}Dao.xml", mybatisPath, className);
+        }
+        else if (template.contains("detailVO.java.vm"))
+        {
+            fileName = StringUtils.format("{}/{}entity/vo/{}/{}DetailVO.java", javaPath, modulePath, classname, className);
+        }
+        else if (template.contains("exportVO.java.vm"))
+        {
+            fileName = StringUtils.format("{}/{}entity/vo/{}/{}ExportVO.java", javaPath, modulePath, classname, className);
+        }
+        else if (template.contains("index.vue.vm"))
+        {
+            fileName = StringUtils.format("{}/views/{}{}/index.vue", vuePath, modulePath, className);
+        }
+        else if (template.contains("maps.java.vm"))
+        {
+            fileName = StringUtils.format("{}/{}entity/maps/{}Maps.java", javaPath, modulePath, className);
+        }
+        else if (template.contains("po.java.vm"))
+        {
+            fileName = StringUtils.format("{}/{}entity/po/{}Entity.java", javaPath, modulePath, className);
+        }
+        else if (template.contains("queryParam.java.vm"))
+        {
+            fileName = StringUtils.format("{}/{}entity/param/{}/{}QueryParam.java", javaPath, modulePath, classname, className);
+        }
+        else if (template.contains("queryVO.java.vm"))
+        {
+            fileName = StringUtils.format("{}/{}entity/vo/{}/{}QueryVO.java", javaPath, modulePath, classname, className);
+        }
+        else if (template.contains("saveOrUpdateParam.java.vm"))
+        {
+            fileName = StringUtils.format("{}/{}entity/param/{}/{}SaveOrUpdateParam.java", javaPath, modulePath, classname, className);
+        }
+        else if (template.contains("service.java.vm"))
+        {
+            fileName = StringUtils.format("{}/{}service/{}Service.java", javaPath, modulePath, className);
+        }
+        else if (template.contains("serviceImpl.java.vm"))
+        {
+            fileName = StringUtils.format("{}/{}service/impl/{}ServiceImpl.java", javaPath, modulePath, className);
         }
         else if (template.contains("sql.vm"))
         {
             fileName = businessName + "Menu.sql";
-        }
-        else if (template.contains("api.js.vm"))
-        {
-            fileName = StringUtils.format("{}/api/{}/{}.js", vuePath, moduleName, businessName);
-        }
-        else if (template.contains("index.vue.vm"))
-        {
-            fileName = StringUtils.format("{}/views/{}/{}/index.vue", vuePath, moduleName, businessName);
-        }
-        else if (template.contains("index-tree.vue.vm"))
-        {
-            fileName = StringUtils.format("{}/views/{}/{}/index.vue", vuePath, moduleName, businessName);
         }
         return fileName;
     }
@@ -323,7 +349,8 @@ public class VelocityUtils
      */
     public static String getPermissionPrefix(String moduleName, String businessName)
     {
-        return StringUtils.format("{}:{}", moduleName, businessName);
+        return StrUtil.isNotBlank(moduleName) ?
+            StringUtils.format("{}:{}", moduleName, businessName) : businessName;
     }
 
     /**

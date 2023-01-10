@@ -21,6 +21,9 @@ public class GenConfig
     /** 生成包路径 */
     public static String packageName;
 
+    /** 生成模块 */
+    public static String module;
+
     /** 自动去除表前缀，默认是false */
     public static boolean autoRemovePre;
 
@@ -47,6 +50,15 @@ public class GenConfig
     public void setPackageName(String packageName)
     {
         GenConfig.packageName = packageName;
+    }
+
+    public static String getModule() {
+        return module;
+    }
+
+    @Value("${module}")
+    public static void setModule(String module) {
+        GenConfig.module = module;
     }
 
     public static boolean getAutoRemovePre()

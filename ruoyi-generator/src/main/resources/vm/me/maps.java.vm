@@ -1,8 +1,8 @@
-package ${packageName}.${moduleName}.entity.maps;
+package ${packageName}#if($moduleName).${moduleName}#end.entity.maps;
 
-import ${packageName}.${moduleName}.entity.param.${classname}.${ClassName}SaveOrUpdateParam;
-import ${packageName}.${moduleName}.entity.po.${ClassName}Entity;
-import ${packageName}.${moduleName}.entity.vo.${classname}.${ClassName}DetailVO;
+import ${packageName}#if($moduleName).${moduleName}#end.entity.param.${classname}.${ClassName}SaveOrUpdateParam;
+import ${packageName}#if($moduleName).${moduleName}#end.entity.po.${ClassName}Entity;
+import ${packageName}#if($moduleName).${moduleName}#end.entity.vo.${classname}.${ClassName}DetailVO;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

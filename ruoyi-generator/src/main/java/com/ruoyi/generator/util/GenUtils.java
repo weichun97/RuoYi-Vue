@@ -22,7 +22,7 @@ public class GenUtils
     {
         genTable.setClassName(convertClassName(genTable.getTableName()));
         genTable.setPackageName(GenConfig.getPackageName());
-        genTable.setModuleName(getModuleName(GenConfig.getPackageName()));
+        genTable.setModuleName(GenConfig.getModule());
         genTable.setBusinessName(getBusinessName(genTable.getTableName()));
         genTable.setFunctionName(replaceText(genTable.getTableComment()));
         genTable.setFunctionAuthor(GenConfig.getAuthor());
@@ -78,8 +78,8 @@ public class GenUtils
             }
         }
 
-        // 插入字段（默认所有字段都需要插入）
-        column.setIsInsert(GenConstants.REQUIRE);
+        // 导出字段（默认所有字段都需要插入）
+        column.setIsExport(GenConstants.REQUIRE);
 
         // 编辑字段
         if (!arraysContains(GenConstants.COLUMNNAME_NOT_EDIT, columnName) && !column.isPk())
@@ -87,7 +87,7 @@ public class GenUtils
             column.setIsEdit(GenConstants.REQUIRE);
         }
         // 列表字段
-        if (!arraysContains(GenConstants.COLUMNNAME_NOT_LIST, columnName) && !column.isPk())
+        if (!arraysContains(GenConstants.COLUMNNAME_NOT_LIST, columnName))
         {
             column.setIsList(GenConstants.REQUIRE);
         }
@@ -140,19 +140,6 @@ public class GenUtils
     public static boolean arraysContains(String[] arr, String targetValue)
     {
         return Arrays.asList(arr).contains(targetValue);
-    }
-
-    /**
-     * 获取模块名
-     * 
-     * @param packageName 包名
-     * @return 模块名
-     */
-    public static String getModuleName(String packageName)
-    {
-        int lastIndex = packageName.lastIndexOf(".");
-        int nameLength = packageName.length();
-        return StringUtils.substring(packageName, lastIndex + 1, nameLength);
     }
 
     /**

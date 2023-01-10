@@ -2,6 +2,7 @@ package ${packageName}#if($moduleName).${moduleName}#end.entity.vo.${classname};
 
 import cn.hutool.core.date.DatePattern;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.ruoyi.common.annotation.Excel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -10,24 +11,26 @@ import java.util.Date;
 
 @Data
 @ApiModel
-public class ${ClassName}DetailVO {
-
-    @ApiModelProperty(value = "$pkColumn.columnComment", example = "1")
-    private $pkColumn.javaType $pkColumn.javaField;
+public class ${ClassName}ExportVO {
 
 #foreach ($column in $columns)
-    #if($column.edit)
+    #if($column.export)
         #set($parentheseIndex=$column.columnComment.indexOf("（"))
         #if($parentheseIndex != -1)
             #set($comment=$column.columnComment.substring(0, $parentheseIndex))
         #else
             #set($comment=$column.columnComment)
         #end
-        #if($column.javaType == 'Date')
-    @JsonFormat(pattern = DatePattern.NORM_DATE_PATTERN)
-    @ApiModelProperty(value = "$column.columnComment", example = "2023-01-01")
+        #if($column.dictType != "")
+    @Excel(name = "$comment", dictType = "$column.dictType")
+        #elseif($parentheseIndex != -1)
+    @Excel(name = "$comment", readConverterExp = "$column.readConverterExp()")
+        #elseif($column.javaField == 'createTime')
+    @Excel(name = "${comment}", width = 30, dateFormat = DatePattern.NORM_DATETIME_PATTERN)
+        #elseif($column.javaType == 'Date')
+    @Excel(name = "${comment}", width = 30, dateFormat = DatePattern.NORM_DATE_PATTERN)
         #else
-    @ApiModelProperty(value = "$column.columnComment #if($column.dictType != "")字典:$column.dictType#end", example = "")
+    @Excel(name = "$comment")
         #end
     private $column.javaType $column.javaField;
 
