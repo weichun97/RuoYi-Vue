@@ -23,9 +23,11 @@ import com.ruoyi.common.utils.sql.SqlUtil;
 
 /**
  * web层通用数据处理
+                                                                                                                                                                                 * 废弃了
  * 
  * @author ruoyi
  */
+@Deprecated
 public class BaseController
 {
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());

@@ -40,7 +40,7 @@
 #elseif($column.htmlType == "datetime" && $column.queryType != "BETWEEN")
       <el-form-item label="${comment}" prop="${column.javaField}">
         <el-date-picker clearable
-          v-model="daterange${AttrName}"
+          v-model="queryParams.$column.javaField"
           type="date"
           value-format="yyyy-MM-dd"
           placeholder="请选择${comment}">
@@ -201,7 +201,11 @@
 #set($dictType=$column.dictType)
 #if($column.htmlType == "input")
         <el-form-item label="${comment}" prop="${field}">
+    #if($column.javaType == "Integer" || $column.javaType == "Long")
+          <el-input-number v-model="form.${field}" controls-position="right"></el-input-number>
+    #else
           <el-input v-model="form.${field}" placeholder="请输入${comment}" />
+    #end
         </el-form-item>
 #elseif($column.htmlType == "imageUpload")
         <el-form-item label="${comment}" prop="${field}">
