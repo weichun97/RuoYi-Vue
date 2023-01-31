@@ -16,34 +16,33 @@
             t1.update_time,
             t1.delete_time,
             t1.create_by,
-            t1.update_by,
-            t1.delete_by
+            t1.update_by
         from test_student t1
         <where>
-                <if test="queryParam.studentName != null  and queryParam.studentName.trim() != ''">
-                    and student_name like concat('%', #{queryParam.studentName}, '%')
-                </if>
-                <if test="queryParam.studentHobby != null ">
-                    and student_hobby = #{queryParam.studentHobby}
-                </if>
-                <if test="queryParam.studentSex != null ">
-                    and student_sex = #{queryParam.studentSex}
-                </if>
-                <if test="queryParam.studentStatus != null ">
-                    and student_status = #{queryParam.studentStatus}
-                </if>
-                <if test="queryParam.beginStudentBirthday != null">
-                    and student_birthday >= #{queryParam.beginStudentBirthday}
-                </if>
-                <if test="queryParam.endStudentBirthday != null">
-                    and student_birthday <![CDATA[ < ]]> DATE_ADD(#{queryParam.endStudentBirthday},INTERVAL 1 DAY)
-                </if>
-                <if test="queryParam.beginCreateTime != null">
-                    and create_time >= #{queryParam.beginCreateTime}
-                </if>
-                <if test="queryParam.endCreateTime != null">
-                    and create_time <![CDATA[ < ]]> DATE_ADD(#{queryParam.endCreateTime},INTERVAL 1 DAY)
-                </if>
+                        <if test="queryParam.studentName != null  and queryParam.studentName.trim() != ''">
+                            and student_name like concat('%', #{queryParam.studentName}, '%')
+                        </if>
+                        <if test="queryParam.studentAge != null ">
+                            and student_age = #{queryParam.studentAge}
+                        </if>
+                        <if test="queryParam.studentHobby != null and queryParam.studentHobby.trim() != ''">
+                            and student_hobby = #{queryParam.studentHobby}
+                        </if>
+                        <if test="queryParam.studentSex != null and queryParam.studentSex.trim() != ''">
+                            and student_sex = #{queryParam.studentSex}
+                        </if>
+                        <if test="queryParam.studentStatus != null and queryParam.studentStatus.trim() != ''">
+                            and student_status = #{queryParam.studentStatus}
+                        </if>
+                        <if test="queryParam.studentBirthday != null ">
+                            and student_birthday = #{queryParam.studentBirthday}
+                        </if>
+                        <if test="queryParam.beginCreateTime != null">
+                            and create_time >= #{queryParam.beginCreateTime}
+                        </if>
+                        <if test="queryParam.endCreateTime != null">
+                            and create_time <![CDATA[ < ]]> DATE_ADD(#{queryParam.endCreateTime},INTERVAL 1 DAY)
+                        </if>
                     and t1.delete_time is null
         </where>
         order by t1.id desc

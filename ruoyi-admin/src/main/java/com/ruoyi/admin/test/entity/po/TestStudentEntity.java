@@ -37,19 +37,19 @@ public class TestStudentEntity {
      * 爱好（0代码 1音乐 2电影）
      */
     @TableField(value = "student_hobby")
-    private Integer studentHobby;
+    private String studentHobby;
 
     /**
      * 性别（0男 1女 2未知）
      */
     @TableField(value = "student_sex")
-    private Integer studentSex;
+    private String studentSex;
 
     /**
      * 状态（0正常 1停用）
      */
     @TableField(value = "student_status")
-    private Integer studentStatus;
+    private String studentStatus;
 
     /**
      * 生日
@@ -87,11 +87,5 @@ public class TestStudentEntity {
      */
     @TableField(value = "update_by")
     private String updateBy;
-
-    /**
-     * 删除人
-     */
-    @TableField(value = "delete_by")
-    private String deleteBy;
 
 }

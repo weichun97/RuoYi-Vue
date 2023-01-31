@@ -36,6 +36,8 @@
         <hutool.all.version>5.7.22</hutool.all.version>
         <knife4j.version>3.0.3</knife4j.version>
         <spring-boot.version>2.5.14</spring-boot.version>
+        <xxl-job.version>2.3.0</xxl-job.version>
+        <minio.version>8.5.1</minio.version>
     </properties>
 	
     <!-- 依赖声明 -->
@@ -178,6 +180,14 @@
                 <version>${ruoyi.version}</version>
             </dependency>
 
+            <!-- 通用工具-->
+            <dependency>
+                <groupId>com.ruoyi</groupId>
+                <artifactId>ruoyi-xxljob</artifactId>
+                <version>${ruoyi.version}</version>
+            </dependency>
+
+
             <!-- mybatis-plus 增强CRUD -->
             <dependency>
                 <groupId>com.baomidou</groupId>
@@ -205,6 +215,20 @@
                 <artifactId>knife4j-spring-boot-starter</artifactId>
                 <version>${knife4j.version}</version>
             </dependency>
+
+            <!-- xxl-job -->
+            <dependency>
+                <groupId>com.xuxueli</groupId>
+                <artifactId>xxl-job-core</artifactId>
+                <version>${xxl-job.version}</version>
+            </dependency>
+
+            <!-- minio -->
+            <dependency>
+                <groupId>io.minio</groupId>
+                <artifactId>minio</artifactId>
+                <version>${minio.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -215,6 +239,7 @@
         <module>ruoyi-quartz</module>
         <module>ruoyi-generator</module>
         <module>ruoyi-common</module>
+        <module>ruoyi-xxljob</module>
     </modules>
     <packaging>pom</packaging>
 
