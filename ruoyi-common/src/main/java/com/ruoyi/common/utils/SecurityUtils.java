@@ -25,7 +25,7 @@ public class SecurityUtils
         }
         catch (Exception e)
         {
-            throw new ServiceException("获取用户ID异常", HttpStatus.UNAUTHORIZED);
+            throw new ServiceException(MessageUtils.message("failed.to.obtain.the.user.id"), HttpStatus.UNAUTHORIZED);
         }
     }
 
@@ -40,7 +40,7 @@ public class SecurityUtils
         }
         catch (Exception e)
         {
-            throw new ServiceException("获取部门ID异常", HttpStatus.UNAUTHORIZED);
+            throw new ServiceException(MessageUtils.message("failed.to.obtain.the.dept.id"), HttpStatus.UNAUTHORIZED);
         }
     }
     
@@ -55,7 +55,7 @@ public class SecurityUtils
         }
         catch (Exception e)
         {
-            throw new ServiceException("获取用户账户异常", HttpStatus.UNAUTHORIZED);
+            throw new ServiceException(MessageUtils.message("obtaining.the.user.account.failed"), HttpStatus.UNAUTHORIZED);
         }
     }
 
@@ -70,7 +70,7 @@ public class SecurityUtils
         }
         catch (Exception e)
         {
-            throw new ServiceException("获取用户信息异常", HttpStatus.UNAUTHORIZED);
+            throw new ServiceException(MessageUtils.message("failed.to.obtain.the.user"), HttpStatus.UNAUTHORIZED);
         }
     }
 

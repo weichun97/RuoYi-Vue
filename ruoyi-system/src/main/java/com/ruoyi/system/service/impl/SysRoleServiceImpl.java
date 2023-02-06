@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import com.ruoyi.common.utils.MessageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -185,7 +187,7 @@ public class SysRoleServiceImpl implements ISysRoleService
     {
         if (StringUtils.isNotNull(role.getRoleId()) && role.isAdmin())
         {
-            throw new ServiceException("不允许操作超级管理员角色");
+            throw new ServiceException(MessageUtils.message("the.super.administrator.role.is.not.allowed"));
         }
     }
 
@@ -204,7 +206,7 @@ public class SysRoleServiceImpl implements ISysRoleService
             List<SysRole> roles = SpringUtils.getAopProxy(this).selectRoleList(role);
             if (StringUtils.isEmpty(roles))
             {
-                throw new ServiceException("没有权限访问角色数据！");
+                throw new ServiceException(MessageUtils.message("no.permission.to.access.role.data"));
             }
         }
     }
@@ -365,7 +367,7 @@ public class SysRoleServiceImpl implements ISysRoleService
             SysRole role = selectRoleById(roleId);
             if (countUserRoleByRoleId(roleId) > 0)
             {
-                throw new ServiceException(String.format("%1$s已分配,不能删除", role.getRoleName()));
+                throw new ServiceException(MessageUtils.message("has.been.used.and.cannot.be.deleted", role.getRoleName()));
             }
         }
         // 删除角色与菜单关联
