@@ -23,13 +23,13 @@ public class TestStudentQueryVO {
     private Integer studentAge;
 
     @ApiModelProperty(value = "爱好（0代码 1音乐 2电影） ", example = "")
-    private String studentHobby;
+    private Integer studentHobby;
 
     @ApiModelProperty(value = "性别（0男 1女 2未知） 字典:sys_user_sex", example = "")
-    private String studentSex;
+    private Integer studentSex;
 
     @ApiModelProperty(value = "状态（0正常 1停用） 字典:sys_normal_disable", example = "")
-    private String studentStatus;
+    private Integer studentStatus;
 
     @JsonFormat(pattern = DatePattern.NORM_DATE_PATTERN)
     @ApiModelProperty(value = "生日", example = "2023-01-01")
