@@ -25,20 +25,23 @@
                         <if test="queryParam.studentAge != null ">
                             and student_age = #{queryParam.studentAge}
                         </if>
-                        <if test="queryParam.studentHobby != null ">
+                        <if test="queryParam.studentHobby != null and queryParam.studentHobby.trim() != ''">
                             and student_hobby = #{queryParam.studentHobby}
                         </if>
-                        <if test="queryParam.studentSex != null ">
+                        <if test="queryParam.studentSex != null and queryParam.studentSex.trim() != ''">
                             and student_sex = #{queryParam.studentSex}
                         </if>
-                        <if test="queryParam.studentStatus != null ">
+                        <if test="queryParam.studentStatus != null and queryParam.studentStatus.trim() != ''">
                             and student_status = #{queryParam.studentStatus}
                         </if>
-                        <if test="queryParam.beginStudentBirthday != null">
-                            and student_birthday >= #{queryParam.beginStudentBirthday}
+                        <if test="queryParam.studentBirthday != null ">
+                            and student_birthday = #{queryParam.studentBirthday}
                         </if>
-                        <if test="queryParam.endStudentBirthday != null">
-                            and student_birthday <![CDATA[ < ]]> DATE_ADD(#{queryParam.endStudentBirthday},INTERVAL 1 DAY)
+                        <if test="queryParam.beginCreateTime != null">
+                            and create_time >= #{queryParam.beginCreateTime}
+                        </if>
+                        <if test="queryParam.endCreateTime != null">
+                            and create_time <![CDATA[ < ]]> DATE_ADD(#{queryParam.endCreateTime},INTERVAL 1 DAY)
                         </if>
                     and t1.delete_time is null
         </where>

@@ -1,5 +1,6 @@
 package com.ruoyi.common.api;
 
+import com.ruoyi.common.utils.MessageUtils;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -33,7 +34,7 @@ public class Response<T> {
      * 成功返回空结果
      */
     public static Response success() {
-        return new Response(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMessage(), null);
+        return new Response(ResultCode.SUCCESS.getCode(), MessageUtils.message(ResultCode.SUCCESS.getMessage()), null);
     }
 
     /**
@@ -42,7 +43,7 @@ public class Response<T> {
      * @param data 获取的数据
      */
     public static <T> Response<T> success(T data) {
-        return new Response<T>(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMessage(), data);
+        return new Response<T>(ResultCode.SUCCESS.getCode(), MessageUtils.message(ResultCode.SUCCESS.getMessage()), data);
     }
 
     /**
@@ -50,9 +51,10 @@ public class Response<T> {
      *
      * @param data    获取的数据
      * @param message 提示信息
+     * @param params 描述国际化的参数
      */
-    public static <T> Response<T> success(T data, String message) {
-        return new Response<T>(ResultCode.SUCCESS.getCode(), message, data);
+    public static <T> Response<T> success(T data, String message, Object... params) {
+        return new Response<T>(ResultCode.SUCCESS.getCode(), MessageUtils.message(MessageUtils.message(message, params)), data);
     }
 
     /**
@@ -61,26 +63,27 @@ public class Response<T> {
      * @param errorCode 错误码
      */
     public static <T> Response<T> failed(IErrorCode errorCode) {
-        return new Response<T>(errorCode.getCode(), errorCode.getMessage(), null);
+        return new Response<T>(errorCode.getCode(), MessageUtils.message(errorCode.getMessage()), null);
     }
 
     /**
      * 失败返回结果
      *
      * @param errorCode 错误码
-     * @param message   错误信息
+     * @param params 描述国际化的参数
      */
-    public static <T> Response<T> failed(IErrorCode errorCode, String message) {
-        return new Response<T>(errorCode.getCode(), message, null);
+    public static <T> Response<T> failed(IErrorCode errorCode, Object... params) {
+        return new Response<T>(errorCode.getCode(), MessageUtils.message(errorCode.getMessage(), params), null);
     }
 
     /**
      * 失败返回结果
      *
      * @param message 提示信息
+     * @param params 描述国际化的参数
      */
-    public static <T> Response<T> failed(String message) {
-        return new Response<T>(ResultCode.FAILED.getCode(), message, null);
+    public static <T> Response<T> failed(String message, Object... params) {
+        return new Response<T>(ResultCode.FAILED.getCode(), MessageUtils.message(message, params), null);
     }
 
     /**

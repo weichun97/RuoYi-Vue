@@ -14,22 +14,22 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public enum ResultCode implements IErrorCode {
 
-    SUCCESS(200, "操作成功"),
-    FAILED(500, "操作失败"),
-    UNAUTHORIZED(401, "暂未登录或token已经过期"),
-    VALIDATE_FAILED(402, "参数检验失败"),
-    FORBIDDEN(403, "没有相关权限"),
-    LOGIN_FAILED(405, "登录失败,帐号或密码错误"),
-    LOGIN_CODE_TIMEOUT(405, "登录失败,验证码已过期"),
-    LOGIN_CODE_FAILED(405, "登录失败,验证码输入错误"),
-    DATA_IS_NULL(501, "操作的数据异常"),
-    REMOTE_CALL_FAILED(502, "远程调用失败"),
-    INSERT_ERROR(5000,"插入数据失败！"),
-    UPDATE_ERROR(5001,"修改数据失败！"),
-    DELETE_ERROR(5002,"删除数据失败！"),
-    DUPLICATE_KEY(5003,"数据已存在！"),
-    DATA_DOES_NOT_EXIST(5004,"数据不存在！"),
-    REPEAT_SUBMIT(6001,"请勿重复提交！"),
+    SUCCESS(200, "successful.operation"),
+    FAILED(500, "operation.failure"),
+    UNAUTHORIZED(401, "token.expired"),
+    VALIDATE_FAILED(402, "parameter.failure"),
+    FORBIDDEN(403, "forbidden"),
+    LOGIN_FAILED(405, "login.failed"),
+    LOGIN_CODE_TIMEOUT(405, "login.code.timeout"),
+    LOGIN_CODE_FAILED(405, "login.code.failed"),
+    DATA_IS_NULL(501, "data.is.null"),
+    REMOTE_CALL_FAILED(502, "remote.call.failed"),
+    INSERT_ERROR(5000,"insert.error"),
+    UPDATE_ERROR(5001,"update.error"),
+    DELETE_ERROR(5002,"delete.error"),
+    DUPLICATE_KEY(5003,"duplicate.key"),
+    DATA_DOES_NOT_EXIST(5004,"data.does.not.exist"),
+    REPEAT_SUBMIT(6001,"repeat.submit"),
     ;
 
 

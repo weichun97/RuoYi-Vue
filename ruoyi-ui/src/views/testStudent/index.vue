@@ -17,6 +17,14 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
+      <el-form-item label="爱好" prop="studentHobby">
+        <el-input
+          v-model="queryParams.studentHobby"
+          placeholder="请输入爱好"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
       <el-form-item label="性别" prop="studentSex">
         <el-select v-model="queryParams.studentSex" placeholder="请选择性别" clearable>
           <el-option
@@ -105,31 +113,31 @@
           v-hasPermi="['test:testStudent:export']"
         >导出</el-button>
       </el-col>
-      <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
+      <right-toolbar :showSearch.sync="showSearch" @queryTable="getList" :columns="columns"></right-toolbar>
     </el-row>
 
     <el-table v-loading="loading" :data="testStudentList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="编号" align="center" prop="id" />
-      <el-table-column label="学生名称" align="center" prop="studentName" />
-      <el-table-column label="年龄" align="center" prop="studentAge" />
-      <el-table-column label="爱好" align="center" prop="studentHobby" />
-      <el-table-column label="性别" align="center" prop="studentSex">
+      <el-table-column label="编号" align="center" prop="id" v-if="columns[0].visible" />
+      <el-table-column label="学生名称" align="center" prop="studentName" v-if="columns[1].visible" />
+      <el-table-column label="年龄" align="center" prop="studentAge" v-if="columns[2].visible" />
+      <el-table-column label="爱好" align="center" prop="studentHobby" v-if="columns[3].visible" />
+      <el-table-column label="性别" align="center" prop="studentSex" v-if="columns[4].visible" >
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_user_sex" :value="scope.row.studentSex"/>
         </template>
       </el-table-column>
-      <el-table-column label="状态" align="center" prop="studentStatus">
+      <el-table-column label="状态" align="center" prop="studentStatus" v-if="columns[5].visible" >
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_normal_disable" :value="scope.row.studentStatus"/>
         </template>
       </el-table-column>
-      <el-table-column label="生日" align="center" prop="studentBirthday" width="180">
+      <el-table-column label="生日" align="center" prop="studentBirthday" width="180" v-if="columns[6].visible" >
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.studentBirthday, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="创建时间" align="center" prop="createTime" width="180">
+      <el-table-column label="创建时间" align="center" prop="createTime" width="180" v-if="columns[7].visible" >
           <template slot-scope="scope">
               <span>{{ parseTime(scope.row.createTime, '{y}-{m}-{d} {h}:{m}:{s}') }}</span>
           </template>
@@ -172,9 +180,7 @@
           <el-input-number v-model="form.studentAge" controls-position="right"></el-input-number>
         </el-form-item>
         <el-form-item label="爱好" prop="studentHobby">
-          <el-select v-model="form.studentHobby" placeholder="请选择爱好">
-            <el-option label="请选择字典生成" value="" />
-          </el-select>
+          <el-input v-model="form.studentHobby" placeholder="请输入爱好" />
         </el-form-item>
         <el-form-item label="性别" prop="studentSex">
           <el-select v-model="form.studentSex" placeholder="请选择性别">
@@ -252,6 +258,17 @@ export default {
         studentBirthday: null,
         createTime: null,
       },
+      // 列信息
+      columns: [
+        { key: 0, label: `编号`, visible: true },
+        { key: 1, label: `学生名称`, visible: true },
+        { key: 2, label: `年龄`, visible: true },
+        { key: 3, label: `爱好`, visible: true },
+        { key: 4, label: `性别`, visible: true },
+        { key: 5, label: `状态`, visible: true },
+        { key: 6, label: `生日`, visible: true },
+        { key: 7, label: `创建时间`, visible: true }
+      ],
       // 表单参数
       form: {},
       // 表单校验
