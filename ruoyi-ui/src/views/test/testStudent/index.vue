@@ -9,6 +9,22 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
+      <el-form-item label="年龄" prop="studentAge">
+        <el-input
+          v-model="queryParams.studentAge"
+          placeholder="请输入年龄"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
+      <el-form-item label="爱好" prop="studentHobby">
+        <el-input
+          v-model="queryParams.studentHobby"
+          placeholder="请输入爱好"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
       <el-form-item label="性别" prop="studentSex">
         <el-select v-model="queryParams.studentSex" placeholder="请选择性别" clearable>
           <el-option
@@ -32,17 +48,6 @@
       <el-form-item label="生日">
         <el-date-picker
           v-model="daterangeStudentBirthday"
-          style="width: 240px"
-          value-format="yyyy-MM-dd"
-          type="daterange"
-          range-separator="-"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期"
-        ></el-date-picker>
-      </el-form-item>
-      <el-form-item label="创建时间">
-        <el-date-picker
-          v-model="daterangeCreateTime"
           style="width: 240px"
           value-format="yyyy-MM-dd"
           type="daterange"
@@ -164,12 +169,10 @@
           <el-input v-model="form.studentName" placeholder="请输入学生名称" />
         </el-form-item>
         <el-form-item label="年龄" prop="studentAge">
-          <el-input v-model="form.studentAge" placeholder="请输入年龄" />
+          <el-input-number v-model="form.studentAge" controls-position="right"></el-input-number>
         </el-form-item>
         <el-form-item label="爱好" prop="studentHobby">
-          <el-select v-model="form.studentHobby" placeholder="请选择爱好">
-            <el-option label="请选择字典生成" value="" />
-          </el-select>
+          <el-input-number v-model="form.studentHobby" controls-position="right"></el-input-number>
         </el-form-item>
         <el-form-item label="性别" prop="studentSex">
           <el-select v-model="form.studentSex" placeholder="请选择性别">
@@ -243,11 +246,11 @@ export default {
         pageNum: 1,
         pageSize: 10,
         studentName: null,
+        studentAge: null,
         studentHobby: null,
         studentSex: null,
         studentStatus: null,
         studentBirthday: null,
-        createTime: null,
       },
       // 表单参数
       form: {},
@@ -316,8 +319,7 @@ export default {
         updateTime: null,
         deleteTime: null,
         createBy: null,
-        updateBy: null,
-        deleteBy: null
+        updateBy: null
       };
       this.resetForm("form");
     },

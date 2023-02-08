@@ -145,6 +145,7 @@ public class VelocityUtils
         templates.add("vm/me/serviceImpl.java.vm");
         templates.add("vm/me/dao.xml.vm");
         templates.add("vm/me/sql.vm");
+        templates.add("vm/me/messages.properties.vm");
         templates.add("vm/me/api.js.vm");
 
 //        templates.add("vm/java/domain.java.vm");
@@ -229,6 +230,10 @@ public class VelocityUtils
         else if (template.contains("maps.java.vm"))
         {
             fileName = StringUtils.format("{}/{}entity/maps/{}Maps.java", javaPath, modulePath, ClassName);
+        }
+        else if (template.contains("messages.properties.vm"))
+        {
+            fileName = "messages.properties";
         }
         else if (template.contains("po.java.vm"))
         {

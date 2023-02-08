@@ -24,9 +24,9 @@ public class ${ClassName}SaveOrUpdateParam {
         #end
         #if($column.required)
             #if($column.javaType == 'String')
-    @NotBlank(message = "$comment不能为空")
+    @NotBlank(message = "$comment{not.null}")
             #else
-    @NotNull(message = "$comment不能为空")
+    @NotNull(message = "$comment{not.null}")
             #end
         #end
         #if($column.javaType == 'Date')

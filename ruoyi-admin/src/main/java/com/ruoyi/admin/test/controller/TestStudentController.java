@@ -36,7 +36,7 @@ public class TestStudentController {
 
     @ApiOperation("导出")
     @PreAuthorize("@ss.hasPermi('test:testStudent:export')")
-    @Log(title = "学生信息", businessType = BusinessType.EXPORT)
+    @Log(title = "test.testStudent", businessType = BusinessType.EXPORT)
     @PostMapping("export")
     public void export(HttpServletResponse response, TestStudentQueryParam testStudentQueryParam)
     {
@@ -52,7 +52,7 @@ public class TestStudentController {
 
     @ApiOperation("保存")
     @PreAuthorize("@ss.hasPermi('test:testStudent:save')")
-    @Log(title = "学生信息", businessType = BusinessType.INSERT)
+    @Log(title = "test.testStudent", businessType = BusinessType.INSERT)
     @PostMapping
     public Response save(@Valid @RequestBody TestStudentSaveOrUpdateParam saveOrUpdateParam){
         testStudentService.save(saveOrUpdateParam);
@@ -61,7 +61,7 @@ public class TestStudentController {
 
     @ApiOperation("更新")
     @PreAuthorize("@ss.hasPermi('test:testStudent:update')")
-    @Log(title = "学生信息", businessType = BusinessType.UPDATE)
+    @Log(title = "test.testStudent", businessType = BusinessType.UPDATE)
     @PutMapping("{id}")
     public Response update(@PathVariable Long id, @Valid @RequestBody TestStudentSaveOrUpdateParam saveOrUpdateParam){
         testStudentService.update(id, saveOrUpdateParam);
@@ -70,7 +70,7 @@ public class TestStudentController {
 
     @ApiOperation("删除")
     @PreAuthorize("@ss.hasPermi('test:testStudent:remove')")
-    @Log(title = "学生信息", businessType = BusinessType.DELETE)
+    @Log(title = "test.testStudent", businessType = BusinessType.DELETE)
     @DeleteMapping("{ids}")
     public Response remove(@PathVariable Long[] ids){
         testStudentService.remove(ids);

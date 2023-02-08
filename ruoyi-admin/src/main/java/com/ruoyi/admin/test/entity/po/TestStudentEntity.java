@@ -37,19 +37,19 @@ public class TestStudentEntity {
      * 爱好（0代码 1音乐 2电影）
      */
     @TableField(value = "student_hobby")
-    private String studentHobby;
+    private Integer studentHobby;
 
     /**
      * 性别（0男 1女 2未知）
      */
     @TableField(value = "student_sex")
-    private String studentSex;
+    private Integer studentSex;
 
     /**
      * 状态（0正常 1停用）
      */
     @TableField(value = "student_status")
-    private String studentStatus;
+    private Integer studentStatus;
 
     /**
      * 生日

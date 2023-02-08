@@ -14,7 +14,7 @@ import java.util.Date;
 @ApiModel
 public class TestStudentSaveOrUpdateParam {
 
-    @NotBlank(message = "学生名称不能为空")
+    @NotBlank(message = "学生名称{not.null}")
     @ApiModelProperty(value = "学生名称 ", example = "", required = true)
     private String studentName;
 
@@ -22,14 +22,15 @@ public class TestStudentSaveOrUpdateParam {
     private Integer studentAge;
 
     @ApiModelProperty(value = "爱好（0代码 1音乐 2电影） ", example = "")
-    private String studentHobby;
+    private Integer studentHobby;
 
-    @ApiModelProperty(value = "性别（0男 1女 2未知） 字典:sys_user_sex", example = "")
-    private String studentSex;
+    @NotNull(message = "性别{not.null}")
+    @ApiModelProperty(value = "性别（0男 1女 2未知） 字典:sys_user_sex", example = "", required = true)
+    private Integer studentSex;
 
-    @NotBlank(message = "状态不能为空")
+    @NotNull(message = "状态{not.null}")
     @ApiModelProperty(value = "状态（0正常 1停用） 字典:sys_normal_disable", example = "", required = true)
-    private String studentStatus;
+    private Integer studentStatus;
 
     @JsonFormat(pattern = DatePattern.NORM_DATE_PATTERN)
     @ApiModelProperty(value = "生日", example = "2023-01-01")

@@ -36,7 +36,7 @@ public class ${ClassName}Controller {
 
     @ApiOperation("导出")
     @PreAuthorize("@ss.hasPermi('#if($moduleName)${moduleName}:#end${className}:export')")
-    @Log(title = "${functionName}", businessType = BusinessType.EXPORT)
+    @Log(title = "#if($moduleName)${moduleName}.#end${className}", businessType = BusinessType.EXPORT)
     @PostMapping("export")
     public void export(HttpServletResponse response, ${ClassName}QueryParam ${className}QueryParam)
     {
@@ -52,7 +52,7 @@ public class ${ClassName}Controller {
 
     @ApiOperation("保存")
     @PreAuthorize("@ss.hasPermi('#if($moduleName)${moduleName}:#end${className}:save')")
-    @Log(title = "${functionName}", businessType = BusinessType.INSERT)
+    @Log(title = "#if($moduleName)${moduleName}.#end${className}", businessType = BusinessType.INSERT)
     @PostMapping
     public Response save(@Valid @RequestBody ${ClassName}SaveOrUpdateParam saveOrUpdateParam){
         ${className}Service.save(saveOrUpdateParam);
@@ -61,7 +61,7 @@ public class ${ClassName}Controller {
 
     @ApiOperation("更新")
     @PreAuthorize("@ss.hasPermi('#if($moduleName)${moduleName}:#end${className}:update')")
-    @Log(title = "${functionName}", businessType = BusinessType.UPDATE)
+    @Log(title = "#if($moduleName)${moduleName}.#end${className}", businessType = BusinessType.UPDATE)
     @PutMapping("{id}")
     public Response update(@PathVariable Long id, @Valid @RequestBody ${ClassName}SaveOrUpdateParam saveOrUpdateParam){
         ${className}Service.update(id, saveOrUpdateParam);
@@ -70,7 +70,7 @@ public class ${ClassName}Controller {
 
     @ApiOperation("删除")
     @PreAuthorize("@ss.hasPermi('#if($moduleName)${moduleName}:#end${className}:remove')")
-    @Log(title = "${functionName}", businessType = BusinessType.DELETE)
+    @Log(title = "#if($moduleName)${moduleName}.#end${className}", businessType = BusinessType.DELETE)
     @DeleteMapping("{ids}")
     public Response remove(@PathVariable Long[] ids){
         ${className}Service.remove(ids);

@@ -17,7 +17,7 @@ public enum ResultCode implements IErrorCode {
     SUCCESS(200, "successful.operation"),
     FAILED(500, "operation.failure"),
     UNAUTHORIZED(401, "token.expired"),
-    VALIDATE_FAILED(402, "parameter.failure"),
+    VALIDATE_FAILED(402, "customize"),
     FORBIDDEN(403, "forbidden"),
     LOGIN_FAILED(405, "login.failed"),
     LOGIN_CODE_TIMEOUT(405, "login.code.timeout"),
