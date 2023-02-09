@@ -419,9 +419,9 @@ function getList() {
 #foreach ($column in $columns)
 #if($column.htmlType == "datetime" && $column.queryType == "BETWEEN")
 #set($AttrName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
-  if (null != daterange${AttrName} && '' != daterange${AttrName}) {
-    queryParams.value["begin${AttrName}"] = daterange${AttrName}[0];
-    queryParams.value["end${AttrName}"] = daterange${AttrName}[1];
+  if (null != daterange${AttrName}.value && '' != daterange${AttrName}.value) {
+    queryParams.value["begin${AttrName}"] = daterange${AttrName}.value[0];
+    queryParams.value["end${AttrName}"] = daterange${AttrName}.value[1];
   }
   else {
     queryParams.value["begin${AttrName}"] = null;

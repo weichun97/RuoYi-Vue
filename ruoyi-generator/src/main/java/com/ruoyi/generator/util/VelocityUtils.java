@@ -159,6 +159,7 @@ public class VelocityUtils
         if (GenConstants.TPL_CRUD.equals(tplCategory))
         {
             templates.add("vm/me/index.vue.vm");
+            templates.add("vm/me/index.vue3.vm");
 //            templates.add("vm/vue/index.vue.vm");
         }
         else if (GenConstants.TPL_TREE.equals(tplCategory))
@@ -226,6 +227,10 @@ public class VelocityUtils
         else if (template.contains("index.vue.vm"))
         {
             fileName = StringUtils.format("{}/views/{}{}/index.vue", vuePath, modulePath, className);
+        }
+        else if (template.contains("index.vue3.vm"))
+        {
+            fileName = StringUtils.format("{}/views/{}{}/index3.vue", vuePath, modulePath, className);
         }
         else if (template.contains("maps.java.vm"))
         {
